@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, take, map, takeUntil } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { Student } from 'src/app/shared/models';
 import { StudentService } from 'src/app/shared/services/student.service';
