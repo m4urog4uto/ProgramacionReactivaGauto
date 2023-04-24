@@ -41,3 +41,16 @@ section {
 .not-approved {
     color: rgb(238, 38, 38);
 }
+
+.list-star {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin-left: 28px;
+}
+
+.list-star h4 {
+    margin-bottom: 20px;
+}

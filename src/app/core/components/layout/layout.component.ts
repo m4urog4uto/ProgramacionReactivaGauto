@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, take, map, takeUntil } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { Student } from 'src/app/shared/models';
@@ -14,16 +14,15 @@ export class LayoutComponent implements OnDestroy {
   isLoading: boolean = false;
   studentList$: Observable<Student[]>;
   destroyed$ = new Subject<void>();
+  startStudent: Student[] = [];
 
   constructor(private studentService: StudentService) {
-    this.studentList$ = this.studentService.getStudentList().pipe(
-      map((student) => {
-        return student.map((obj) => ({
-          ...obj,
-          isApproved: obj.qualification >= 7
-        }))
-      })
-    )
+    this.studentList$ = this.studentService.getStudentList();
+    this.studentService.getStarStudent()
+      .pipe(
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((stars) => this.startStudent = stars);
   }
 
   ngOnDestroy(): void {
